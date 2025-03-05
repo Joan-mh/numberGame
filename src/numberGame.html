@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<title>Number Guessing Game</title>
+<p id="output">I'm thinking of a number between 0 and 99.</p>
+<input id="input" type="text" placeholder="Guess a number">
+<button>guess</button>
+
+<script type="text/javascript">
+var mysteryNumber = 50;
+var playerGuess = 0;
+
+//The input and output fields
+var input = document.querySelector("input");
+var output = document.querySelector("#output");
+
+//the button
+var button = document.querySelector("button");
+button.style.cursor = "pointer";
+button.addEventListener("click", clickHandler, false)
+
+function clickHandler() {
+    playGame();
+}
+
+function playGame() {
+    playerGuess = parseInt(input.value);
+    if (playerGuess === mysteryNumber) {
+        output.innerHTML = "You guessed it!";
+    } else if (playerGuess > mysteryNumber) {
+        output.innerHTML = "Too high!";
+    } else {
+        output.innerHTML = "Too low!";
+    }
+}
+</script>
