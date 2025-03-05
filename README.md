@@ -9,7 +9,7 @@ per exemple, si només hem canviat un fitxer :
 # git push origin main`
 ```
 
-Per tenir el repositori i rere els canvis,cal fer  un clone i un pull :
+Per tenir el repositori i rebre els canvis,cal fer  un clone i un pull, segons el cas :
 
 ```
 # git clone https://github.com/joan-mh/numbergame
@@ -21,4 +21,4 @@ Si voleu tenir el mateix fitxer que el professor, després que ell faci el push 
 # git pull origin main`
 ```
 Nota :
-Si apareix unmissatge d'error cal canviar el nom a la còpia local del fitxer o esborrar-lo
+Si apareix un missatge d'error cal canviar el nom a la còpia local del fitxer o esborrar-lo
