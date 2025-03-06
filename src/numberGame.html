@@ -5,7 +5,7 @@
 <button>guess</button>
 
 <script type="text/javascript">
-var mysteryNumber = 50;
+var mysteryNumber = Math.floor(Math.random() * 100);
 var playerGuess = 0;
 var guessesRemaining = 10;
 var guessesMade = 0;
@@ -20,10 +20,18 @@ var output = document.querySelector("#output");
 //the button
 var button = document.querySelector("button");
 button.style.cursor = "pointer";
-button.addEventListener("click", clickHandler, false)
+button.addEventListener("click", clickHandler, false);
+window.addEventListener("keydown", keyDownHandler, false);
+
+
+function keyDownHandler(event) {
+    if(event.keyCode === 13) {
+        validateInput();
+    }
+}
 
 function clickHandler() {
-    playGame();
+    validateInput();
 }
 
 function playGame() {
@@ -32,24 +40,30 @@ function playGame() {
     guessesMade++;
     gameState = "Guess: " + guessesMade + " Remaining: " + guessesRemaining;
 
-    playerGuess = parseInt(input.value);
 
     if (playerGuess === mysteryNumber) {
         gameWon = true;
-        endGame();
     } else if (playerGuess > mysteryNumber) {
         output.innerHTML = "Too high! " + gameState;
-        if (guessesRemaining === 0) {
-            endGame();
-        }
     } else if (guessesRemaining < mysteryNumber){
         output.innerHTML = "Too low! " + gameState;
-        if (guessesRemaining === 0) {
-            endGame();
-        }
     }
+
+    if (guessesRemaining === 0 || gameWon === true) {
+        endGame();
+    }
+
 }
 
+function validateInput() {
+    playerGuess = parseInt(input.value);
+    if (isNaN(playerGuess)) {
+        output.innerHTML = "Please enter a number!";
+    }
+    else{
+        playGame();
+    }
+}
 function endGame()
 {
     if (gameWon)
@@ -60,5 +74,15 @@ function endGame()
     {
         output.innerHTML = "No more guesses left! " +"<br>" + "The number was " + mysteryNumber + "<br>";
     }
+
+    //Disable the button
+    button.removeEventListener("click", clickHandler, false);
+    button.disabled = true;
+
+    //Disable the enter key
+    window.removeEventListener("keydown", keyDownHandler, false);
+
+    //Disable the input key
+    input.disabled = true;
 }
 </script>
