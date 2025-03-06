@@ -76,6 +76,10 @@
 
 </style>
 
+<div id="stage">
+    <div id="scale"></div>
+    <div id="arrow"></div>
+</div>
 
 <p id="output">I'm thinking of a number between 0 and 99.</p>
 <input id="input" type="text" placeholder="Guess a number">
@@ -100,6 +104,8 @@ button.style.cursor = "pointer";
 button.addEventListener("click", clickHandler, false);
 window.addEventListener("keydown", keyDownHandler, false);
 
+//The arrow
+var arrow = document.querySelector("#arrow");
 
 function keyDownHandler(event) {
     if(event.keyCode === 13) {
@@ -129,7 +135,7 @@ function playGame() {
     if (guessesRemaining === 0 || gameWon === true) {
         endGame();
     }
-
+    render();
 }
 
 function validateInput() {
@@ -141,6 +147,11 @@ function validateInput() {
         playGame();
     }
 }
+
+function render(){
+    arrow.style.left = (playerGuess *3) + "px";
+}
+
 function endGame()
 {
     if (gameWon)
