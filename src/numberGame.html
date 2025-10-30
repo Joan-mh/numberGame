@@ -2,7 +2,7 @@
 <title>Number Guessing Game</title>
 
 <p id="output">I'm thinking of a number between 0 and 99.</p>
-<input id="input" type="text" placeholder="Guess a number">
+<input id="input" type="text" placeholder="Guess a number" autofocus>
 <button>guess</button>
 
 <script type="text/javascript">
@@ -23,11 +23,20 @@
  var button = document.querySelector("button");
  button.style.cursor = "pointer";
  button.addEventListener("click", clickHandler, false);
+ window.addEventListener("keydown", keydownHandler, false);
 
- function clickHandler(){
+function clickHandler(){
+   validateInput();
+}
 
-    playGame();
+function keydownHandler(event){
+    if (event.keyCode === 13) validateInput();
+}
 
+function validateInput()
+{
+    if(isNaN(input.value)) output.innerHTML = "Please enter a number.";
+    else playGame();
 }
 
 function playGame(){
@@ -58,8 +67,21 @@ function playGame(){
 }
 
 function endGame(){
-    if (gameWon === true){
-
+    if (gameWon){
+        output.innerHTML = "Yes, it's " + mysteryNumber + "!" + "<br>"
+        + "It only took you " + guessesMade + " guesses.";
     }
+    else
+    {
+        output.innerHTML = "No more guesses left!" + "<br>"
+        + "The number was: " + mysteryNumber + ".";
+    }
+
+    button.removeEventListener("click", clickHandler, false);
+    button.disabled;
+
+    window.removeEventListener("keydown", keydownHandler, false);
+
+    input.disabled = true;
 }
 </script>
